@@ -1456,6 +1456,7 @@ extern byte pinMAP2; //2nd MAP sensor (Currently unused)
 extern byte pinIAT; //IAT sensor pin
 extern byte pinCLT; //CLS sensor pin
 extern byte pinO2; //O2 Sensor pin
+extern byte pinKnock; //knock sensor board input
 extern byte pinO2_2; //second O2 pin
 extern byte pinBat; //Battery voltage pin
 extern byte pinDisplayReset; // OLED reset pin

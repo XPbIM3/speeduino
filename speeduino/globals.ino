@@ -197,6 +197,7 @@ byte pinMAP2;     //2nd MAP sensor (Currently unused)
 byte pinIAT;      //IAT sensor pin
 byte pinCLT;      //CLS sensor pin
 byte pinO2;       //O2 Sensor pin
+byte pinKnock; //knock board sensor pin
 byte pinO2_2;     //second O2 pin
 byte pinBat;      //Battery voltage pin
 byte pinDisplayReset; // OLED reset pin
