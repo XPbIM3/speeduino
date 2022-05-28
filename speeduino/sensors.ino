@@ -459,6 +459,21 @@ void readCLT(bool useFilter)
   currentStatus.coolant = table2D_getValue(&cltCalibrationTable, currentStatus.cltADC) - CALIBRATION_TEMPERATURE_OFFSET; //Temperature calibration values are stored as positive bytes. We subtract 40 from them to allow for negative temperatures
 }
 
+void readKnock()
+{
+  uint8_t tempReading;
+  tempReading = analogRead(pinKnock)>>2;
+  tempReading = analogRead(pinKnock)>>2;
+
+  currentStatus.knockLevel = tempReading;
+  if (tempReading > 127) {currentStatus.knockCount++;}
+}
+
+
+
+
+
+
 void readIAT()
 {
   unsigned int tempReading;

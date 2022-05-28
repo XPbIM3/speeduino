@@ -76,7 +76,8 @@ byte cltErrorCount = 0;
 
 static inline void instanteneousMAPReading() __attribute__((always_inline));
 static inline void readMAP() __attribute__((always_inline));
-static inline void validateMAP();
+static inline void validateMAP(); 
+static inline void readKnock() __attribute__((always_inline));
 void initialiseADC();
 void readTPS(bool=true); //Allows the option to override the use of the filter
 void readO2_2();
