@@ -2687,6 +2687,7 @@ void setPinMapping(byte boardID)
       pinMode(pinTPS, INPUT_ANALOG);
       pinMode(pinIAT, INPUT_ANALOG);
       pinMode(pinCLT, INPUT_ANALOG);
+      pinMode(pinKnock, INPUT_ANALOG);
       pinMode(pinBat, INPUT_ANALOG);
       pinMode(pinBaro, INPUT_ANALOG);
     #else
@@ -2696,6 +2697,7 @@ void setPinMapping(byte boardID)
       pinMode(pinTPS, INPUT);
       pinMode(pinIAT, INPUT);
       pinMode(pinCLT, INPUT);
+      pinMode(pinKnock, INPUT);
       pinMode(pinBat, INPUT);
       pinMode(pinBaro, INPUT);
     #endif
