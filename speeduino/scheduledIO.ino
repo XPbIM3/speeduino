@@ -68,28 +68,28 @@ void closeInjector3and7() { closeInjector3(); closeInjector7(); }
 void openInjector4and8() { openInjector4(); openInjector8(); }
 void closeInjector4and8() { closeInjector4(); closeInjector8(); }
 
-inline void beginCoil1Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil1Charging_DIRECT(); } else { coil1Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil1Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil1Charging_DIRECT(); } else { coil1Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil1Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil1StopCharging_DIRECT(); } else { coil1StopCharging_MC33810(); } }
 
-inline void beginCoil2Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil2Charging_DIRECT(); } else { coil2Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil2Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil2Charging_DIRECT(); } else { coil2Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil2Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil2StopCharging_DIRECT(); } else { coil2StopCharging_MC33810(); } }
 
-inline void beginCoil3Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil3Charging_DIRECT(); } else { coil3Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil3Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil3Charging_DIRECT(); } else { coil3Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil3Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil3StopCharging_DIRECT(); } else { coil3StopCharging_MC33810(); } }
 
-inline void beginCoil4Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil4Charging_DIRECT(); } else { coil4Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil4Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil4Charging_DIRECT(); } else { coil4Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil4Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil4StopCharging_DIRECT(); } else { coil4StopCharging_MC33810(); } }
 
-inline void beginCoil5Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil5Charging_DIRECT(); } else { coil5Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil5Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil5Charging_DIRECT(); } else { coil5Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil5Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil5StopCharging_DIRECT(); } else { coil5StopCharging_MC33810(); } }
 
-inline void beginCoil6Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil6Charging_DIRECT(); } else { coil6Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil6Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil6Charging_DIRECT(); } else { coil6Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil6Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil6StopCharging_DIRECT(); } else { coil6StopCharging_MC33810(); } }
 
-inline void beginCoil7Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil7Charging_DIRECT(); } else { coil7Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil7Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil7Charging_DIRECT(); } else { coil7Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil7Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil7StopCharging_DIRECT(); } else { coil7StopCharging_MC33810(); } }
 
-inline void beginCoil8Charge() {readKnock(); if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil8Charging_DIRECT(); } else { coil8Charging_MC33810(); } tachoOutputFlag = READY; }
+inline void beginCoil8Charge() {if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil8Charging_DIRECT(); } else { coil8Charging_MC33810(); } tachoOutputFlag = READY; }
 inline void endCoil8Charge() { if(ignitionOutputControl != OUTPUT_CONTROL_MC33810) { coil8StopCharging_DIRECT(); } else { coil8StopCharging_MC33810(); } }
 
 //The below 3 calls are all part of the rotary ignition mode
@@ -104,11 +104,11 @@ void beginCoil2and4Charge() { beginCoil2Charge(); beginCoil4Charge(); tachoOutpu
 void endCoil2and4Charge()   { endCoil2Charge();  endCoil4Charge(); }
 
 //For 6cyl wasted COP mode)
-void beginCoil1and4Charge() { beginCoil1Charge(); beginCoil4Charge(); tachoOutputFlag = READY; }
+void beginCoil1and4Charge() {readKnock();  beginCoil1Charge(); beginCoil4Charge(); tachoOutputFlag = READY; }
 void endCoil1and4Charge()   { endCoil1Charge();  endCoil4Charge(); }
-void beginCoil2and5Charge() { beginCoil2Charge(); beginCoil5Charge(); tachoOutputFlag = READY; }
+void beginCoil2and5Charge() {readKnock();  beginCoil2Charge(); beginCoil5Charge(); tachoOutputFlag = READY; }
 void endCoil2and5Charge()   { endCoil2Charge();  endCoil5Charge(); }
-void beginCoil3and6Charge() { beginCoil3Charge(); beginCoil6Charge(); tachoOutputFlag = READY; }
+void beginCoil3and6Charge() {readKnock();  beginCoil3Charge(); beginCoil6Charge(); tachoOutputFlag = READY; }
 void endCoil3and6Charge()   { endCoil3Charge(); endCoil6Charge();  }
 
 //For 8cyl wasted COP mode)
