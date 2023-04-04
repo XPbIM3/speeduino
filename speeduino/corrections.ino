@@ -683,6 +683,7 @@ int8_t correctionsIgn(int8_t base_advance)
   advance = correctionNitrous(advance);
   advance = correctionSoftLaunch(advance);
   advance = correctionSoftFlatShift(advance);
+  advance = correctionATFlatShift(advance);
   advance = correctionKnock(advance);
 
   //Fixed timing check must go last
@@ -869,6 +870,41 @@ int8_t correctionSoftFlatShift(int8_t advance)
 
   return ignSoftFlatValue;
 }
+
+
+
+/** Ignition correction for soft flat shift for AT trans.
+ */
+int8_t correctionATFlatShift(int8_t advance)
+{
+  int8_t ignSoftFlatValue = advance;
+
+  if(ATFS_shiftState)
+  {
+    int8_t temp_adv = advance;
+    if (currentStatus.RPM < configPage9.ATFS_RPM_MAX*100)
+    {
+      temp_adv = map(currentStatus.RPM, configPage9.ATFS_RPM_MIN*100, configPage9.ATFS_RPM_MAX*100, configPage9.ATFS_adv_when_min, configPage9.ATFS_adv_when_max);
+    }
+    else 
+    {
+      temp_adv = configPage9.ATFS_adv_when_max;
+    }
+    
+    // dont let flatshift to increase advance
+    if (temp_adv<advance)
+    {
+      ignSoftFlatValue = temp_adv;
+    }
+  }
+
+  return ignSoftFlatValue;
+}
+
+
+
+
+
 /** Ignition knock (retard) correction.
  */
 int8_t correctionKnock(int8_t advance)

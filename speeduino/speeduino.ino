@@ -265,6 +265,24 @@ void loop()
         else { clutchTrigger = !digitalRead(pinLaunch); }
       }
 
+      if (configPage2.ATFS_enable){
+
+        if ((currentStatus.RPM >= configPage9.ATFS_RPM_MIN*100) && (currentStatus.rpmDOT <= configPage9.ATFS_RPM_drop*100) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
+        {
+          ATFS_shiftState = true;
+          BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
+        }
+        else
+        {
+          ATFS_shiftState = false;
+          BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
+        }
+
+      }
+
+
+
+
       if(previousClutchTrigger != clutchTrigger) { currentStatus.clutchEngagedRPM = currentStatus.RPM; }
 
       if (configPage6.launchEnabled && clutchTrigger && (currentStatus.clutchEngagedRPM < ((unsigned int)(configPage6.flatSArm) * 100)) && (currentStatus.RPM > ((unsigned int)(configPage6.lnchHardLim) * 100)) && (currentStatus.TPS >= configPage10.lnchCtrlTPS) ) 

@@ -585,6 +585,7 @@ extern volatile unsigned long ms_counter; //A counter that increments once per m
 extern uint16_t fixedCrankingOverride;
 extern bool clutchTrigger;
 extern bool previousClutchTrigger;
+extern bool ATFS_shiftState;
 extern volatile uint32_t toothHistory[TOOTH_LOG_SIZE];
 extern volatile uint8_t compositeLogHistory[TOOTH_LOG_SIZE];
 extern volatile bool fpPrimed; //Tracks whether or not the fuel pump priming has been completed yet
@@ -1185,7 +1186,7 @@ struct config9 {
   int8_t ATFS_adv_when_max;
   uint8_t ATFS_TPS_th;
   uint8_t ATFS_MAP_th;
-  uint8_t ATFS_RPM_drop;
+  int8_t ATFS_RPM_drop;
   byte unused10_184;
   byte afrProtectEnabled : 2; /* < AFR protection enabled status. 0 = disabled, 1 = fixed mode, 2 = table mode */
   byte afrProtectMinMAP; /* < Minimum MAP. Stored value is divided by 2. Increments of 2 kPa, maximum 511 (?) kPa */
