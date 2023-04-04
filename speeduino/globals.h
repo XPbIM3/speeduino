@@ -919,7 +919,9 @@ struct config2 {
   byte enableCluster2 : 1;
   byte unusedClusterBits : 4;
 
-  byte unused2_95;
+  byte ATFS_enable : 1;
+  byte unused2_95 : 7;
+  
 
 #if defined(CORE_AVR)
   };
@@ -1141,8 +1143,8 @@ struct config9 {
   uint16_t caninput_source_can_address[16];        //u16 [15] array holding can address of input
   uint8_t caninput_source_start_byte[16];     //u08 [15] array holds the start byte number(value of 0-7)
   uint16_t caninput_source_num_bytes;     //u16 bit status of the number of bytes length 1 or 2
-  byte unused10_67;
-  byte unused10_68;
+  uint8_t ATFS_RPM_MIN;
+  uint8_t ATFS_RPM_MAX;
   byte enable_candata_out : 1;
   byte canoutput_sel[8];
   uint16_t canoutput_param_group[8];
@@ -1179,11 +1181,11 @@ struct config9 {
   byte hardRevMode : 2;
   byte coolantProtRPM[6];
   byte coolantProtTemp[6];
-  byte unused10_179;
-  byte unused10_180;
-  byte unused10_181;
-  byte unused10_182;
-  byte unused10_183;
+  int8_t ATFS_adv_when_min;
+  int8_t ATFS_adv_when_max;
+  uint8_t ATFS_TPS_th;
+  uint8_t ATFS_MAP_th;
+  uint8_t ATFS_RPM_drop;
   byte unused10_184;
   byte afrProtectEnabled : 2; /* < AFR protection enabled status. 0 = disabled, 1 = fixed mode, 2 = table mode */
   byte afrProtectMinMAP; /* < Minimum MAP. Stored value is divided by 2. Increments of 2 kPa, maximum 511 (?) kPa */
