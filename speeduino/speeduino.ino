@@ -267,7 +267,7 @@ void loop()
 
       if (configPage2.ATFS_enable){
 
-        if ((currentStatus.RPM >= configPage9.ATFS_RPM_MIN*100) && (currentStatus.rpmDOT <= configPage9.ATFS_RPM_drop*100) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
+        if ((currentStatus.RPMdiv100 >= configPage9.ATFS_RPM_MIN) && (currentStatus.rpmDOT <= configPage9.ATFS_RPM_drop) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
         {
           ATFS_shiftState = true;
           BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);

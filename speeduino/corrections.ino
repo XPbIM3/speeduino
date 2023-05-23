@@ -882,9 +882,9 @@ int8_t correctionATFlatShift(int8_t advance)
   if(ATFS_shiftState)
   {
     int8_t calculated_advance = advance;
-    if (currentStatus.RPM < configPage9.ATFS_RPM_MAX*100)
+    if (currentStatus.RPMdiv100 < configPage9.ATFS_RPM_MAX)
     {
-      calculated_advance = map(currentStatus.RPM, configPage9.ATFS_RPM_MIN*100, configPage9.ATFS_RPM_MAX*100, configPage9.ATFS_adv_when_min, configPage9.ATFS_adv_when_max);
+      calculated_advance = map(currentStatus.RPMdiv100, configPage9.ATFS_RPM_MIN, configPage9.ATFS_RPM_MAX, configPage9.ATFS_adv_when_min, configPage9.ATFS_adv_when_max);
     }
     else 
     {
