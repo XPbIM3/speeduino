@@ -267,16 +267,38 @@ void loop()
 
       if (configPage2.ATFS_enable){
 
-        if ((currentStatus.RPMdiv100 >= configPage9.ATFS_RPM_MIN) && (currentStatus.rpmDOT <= configPage9.ATFS_RPM_drop) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
+
+
+        if ((ATFS_shiftState == false) && (currentStatus.RPMdiv100 >= configPage9.ATFS_RPM_MIN) && (currentStatus.rpmDOT <= configPage9.ATFS_RPM_drop) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
         {
-          ATFS_shiftState = true;
-          BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          ATFS_upshift_trigger_state_prev = ATFS_upshift_trigger_state;
+          ATFS_upshift_trigger_state = true;
+
+          //BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
         }
         else
         {
+          ATFS_upshift_trigger_state_prev = ATFS_upshift_trigger_state;
+          ATFS_upshift_trigger_state = false;
+          //BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
+        }
+
+        if ((ATFS_shiftState = false) && (ATFS_upshift_trigger_state_prev == false) && (ATFS_upshift_trigger_state == true))
+        {
+          ATFS_shiftState = true;
+          BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          ATFS_state_trigger_time = millis();
+        }
+
+        if ((ATFS_shiftState) && ((millis() - ATFS_state_trigger_time > (uint16_t)configPage9.ATFS_upshift_duration*10) || ((int16_t)millis() - ATFS_state_trigger_time < 0)))
+        {
           ATFS_shiftState = false;
           BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          ATFS_state_trigger_time = 0;
         }
+
+
+
 
       }
 
