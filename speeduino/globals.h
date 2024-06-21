@@ -587,11 +587,8 @@ extern bool clutchTrigger;
 
 extern bool previousClutchTrigger;
 
-extern bool ATFS_upshift_trigger_state;
-extern bool ATFS_upshift_trigger_state_prev;
-
 extern bool ATFS_shiftState;
-extern int16_t ATFS_state_trigger_time;
+extern uint32_t ATFS_state_trigger_time;
 
 extern volatile uint32_t toothHistory[TOOTH_LOG_SIZE];
 extern volatile uint8_t compositeLogHistory[TOOTH_LOG_SIZE];

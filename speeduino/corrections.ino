@@ -882,13 +882,26 @@ int8_t correctionATFlatShift(int8_t advance)
   if(ATFS_shiftState)
   {
     int8_t calculated_advance = advance;
-    if (currentStatus.RPMdiv100 < configPage9.ATFS_RPM_MAX)
+
+    if (currentStatus.RPM <= configPage9.ATFS_RPM_MIN*100)
     {
-      calculated_advance = map(currentStatus.RPMdiv100, configPage9.ATFS_RPM_MIN, configPage9.ATFS_RPM_MAX, configPage9.ATFS_adv_when_min, configPage9.ATFS_adv_when_max);
+      calculated_advance = configPage9.ATFS_adv_when_min;
+      currentStatus.flatShiftingHard = false;
+      BIT_CLEAR(currentStatus.spark, BIT_SPARK2_FLATSH);
     }
-    else 
+
+    else if (currentStatus.RPM >= configPage9.ATFS_RPM_MAX*100)
     {
       calculated_advance = configPage9.ATFS_adv_when_max;
+      currentStatus.flatShiftingHard = true;
+      BIT_SET(currentStatus.spark, BIT_SPARK2_FLATSH);
+    }
+
+    else
+    {
+      currentStatus.flatShiftingHard = false;
+      BIT_CLEAR(currentStatus.spark, BIT_SPARK2_FLATSH);
+      calculated_advance = map(currentStatus.RPM, configPage9.ATFS_RPM_MIN*100, configPage9.ATFS_RPM_MAX*100, configPage9.ATFS_adv_when_min, configPage9.ATFS_adv_when_max);
     }
     
     // dont let flatshift increase current advance
