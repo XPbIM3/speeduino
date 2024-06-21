@@ -137,7 +137,7 @@ bool previousClutchTrigger;
 
 bool ATFS_shiftState = false;
 bool ATFS_upshift_trigger_state_prev = false;
-bool ATFS_upshift_trigger_state_ = false;
+bool ATFS_upshift_trigger_state = false;
 int16_t ATFS_state_trigger_time = 0;
 
 volatile uint32_t toothHistory[TOOTH_LOG_SIZE]; ///< Tooth trigger history - delta time (in uS) from last tooth (Indexed by @ref toothHistoryIndex)

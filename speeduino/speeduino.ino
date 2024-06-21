@@ -290,11 +290,11 @@ void loop()
           ATFS_state_trigger_time = millis();
         }
 
-        if ((ATFS_shiftState) && ((millis() - ATFS_state_trigger_time > (uint16_t)configPage9.ATFS_upshift_duration*10) || ((int16_t)millis() - ATFS_state_trigger_time < 0)))
+        if ((ATFS_shiftState) && (((millis() - ATFS_state_trigger_time) > (uint16_t)configPage9.ATFS_upshift_duration*10) || ((int16_t)millis() - ATFS_state_trigger_time < 0)))
         {
           ATFS_shiftState = false;
           BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
-          ATFS_state_trigger_time = 0;
+          // ATFS_state_trigger_time = 0;
         }
 
 
