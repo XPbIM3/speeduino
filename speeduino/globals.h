@@ -1191,7 +1191,7 @@ struct config9 {
   uint8_t ATFS_TPS_th;
   uint8_t ATFS_MAP_th;
   int8_t ATFS_RPM_drop;
-  uint8_t ATFS_upshift_duration;
+  int8_t ATFS_upshift_duration;
   byte afrProtectEnabled : 2; /* < AFR protection enabled status. 0 = disabled, 1 = fixed mode, 2 = table mode */
   byte afrProtectMinMAP; /* < Minimum MAP. Stored value is divided by 2. Increments of 2 kPa, maximum 511 (?) kPa */
   byte afrProtectMinRPM; /* < Minimum RPM. Stored value is divded by 100. Increments of 100 RPM, maximum 25500 RPM */

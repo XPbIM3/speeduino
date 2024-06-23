@@ -266,27 +266,28 @@ void loop()
       }
 
       if (configPage2.ATFS_enable){
+        bool ATFS_shift_sensing_now = ((currentStatus.RPM >= configPage9.ATFS_RPM_MIN*100) && (currentStatus.rpmDOT <= (configPage9.ATFS_RPM_drop*100)) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th));
         if (configPage9.ATFS_upshift_duration > 0)
         {
           
-          if ((ATFS_shiftState == false) && (currentStatus.RPM >= configPage9.ATFS_RPM_MIN*100) && (currentStatus.rpmDOT <= (configPage9.ATFS_RPM_drop*100)) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
+          if ((ATFS_shiftState == false) && ATFS_shift_sensing_now)
           {
             BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
             ATFS_shiftState = true;
             ATFS_state_trigger_time = ms_counter;
           }
 
-          if (ATFS_shiftState && ((ms_counter - ATFS_state_trigger_time) > (configPage9.ATFS_upshift_duration*10)))
+          if (ATFS_shiftState && ((ms_counter - ATFS_state_trigger_time) > (abs(configPage9.ATFS_upshift_duration)*10)))
           {
             ATFS_shiftState = false;
             BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
           }
 
         }
-        else
+        else if (configPage9.ATFS_upshift_duration == 0)
         {
 
-          if ((currentStatus.RPM >= configPage9.ATFS_RPM_MIN*100) && (currentStatus.rpmDOT <= (configPage9.ATFS_RPM_drop*100)) &&  (currentStatus.TPS >= configPage9.ATFS_TPS_th) && (currentStatus.MAP >= configPage9.ATFS_MAP_th))
+          if (ATFS_shift_sensing_now)
           {
             ATFS_shiftState = true;
             BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
@@ -294,6 +295,29 @@ void loop()
           else
           {
             ATFS_shiftState = false;
+            BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          }
+
+        }
+        
+        else if (configPage9.ATFS_upshift_duration < 0)
+        {
+          if (ATFS_shift_sensing_now)
+          {
+            ATFS_shiftState = true;
+            BIT_SET(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          }
+          if (ATFS_shiftState && !ATFS_shift_sensing_now && (ATFS_state_trigger_time == 0))
+          {
+            ATFS_state_trigger_time = ms_counter;
+            // ATFS_shiftState = false;
+            // BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
+          }
+
+          if ((ATFS_state_trigger_time != 0) && ((ms_counter - ATFS_state_trigger_time) > (abs(configPage9.ATFS_upshift_duration) * 10)))
+          {
+            ATFS_shiftState = false;
+            ATFS_state_trigger_time = 0;
             BIT_CLEAR(currentStatus.spark2, BIT_SPARK2_FLATSS);
           }
 
